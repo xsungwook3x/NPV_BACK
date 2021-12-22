@@ -1,10 +1,15 @@
 package NPV.demo.controller;
 
 import NPV.demo.domain.entity.User;
+import NPV.demo.service.CertificateService;
 import NPV.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api")
@@ -12,9 +17,12 @@ public class UserController {
 
     private final UserService userService;
 
+    private final CertificateService certificateService;
+
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService, CertificateService certificateService){
         this.userService=userService;
+        this.certificateService=certificateService;
     }
 
     @PostMapping("/user")//회원가입
@@ -22,6 +30,14 @@ public class UserController {
 
         return ResponseEntity.ok().body(userService.create(user));
     }
+
+    @PostMapping("/user/certificate")//회원가입시 인증서 제출
+    public ResponseEntity<String> uploadCertificate(@RequestBody MultipartFile file)throws IllegalStateException, IOException {
+        certificateService.store(file);
+        return new ResponseEntity<>("", HttpStatus.OK);
+    }
+
+
 
     @GetMapping("/user")//로그인
     public ResponseEntity<User> userLogin(@RequestParam String id){
