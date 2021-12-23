@@ -1,5 +1,6 @@
 package NPV.demo.config;
 
+import NPV.demo.repository.CertificateRepository;
 import NPV.demo.repository.JpaUserRepository;
 import NPV.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,4 +19,5 @@ public class SpringConfig {
     public UserService userService(){
         return new UserService(jpaUserRepository);
     }
+
 }

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @RestController
 @RequestMapping("/api")
@@ -52,9 +54,9 @@ public class UserController {
     }
 
     @PutMapping("/user/certificate")//인증서 업데이트
-    public ResponseEntity<String> updateCertificate(@RequestParam String filename, @RequestBody MultipartFile file) throws IllegalStateException, IOException{
+    public ResponseEntity<User> updateCertificate(@RequestParam String filename, @RequestParam String id,@RequestBody MultipartFile file) throws IllegalStateException, IOException{
         certificateService.update(file,filename);
-        return new ResponseEntity<>("",HttpStatus.OK);
+        return ResponseEntity.ok().body(userService.updateDate(id, LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")))));
     }
 
     @GetMapping("/user")//로그인
@@ -82,8 +84,9 @@ public class UserController {
         if(userService.read(id).get()==null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(userService.update(id,password));
+        return ResponseEntity.ok().body(userService.updatePassword(id,password));
     }
+
 
     @DeleteMapping("/user")//탈퇴
     public void delete(@RequestParam String id){

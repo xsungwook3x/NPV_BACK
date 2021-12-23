@@ -3,8 +3,10 @@ package NPV.demo.service;
 import NPV.demo.domain.entity.User;
 import NPV.demo.repository.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -25,12 +27,17 @@ public class UserService {
         return jpaUserRepository.findById(id);
     }
 
-    public User update(String id, Long password){
+    public User updatePassword(String id, Long password){
         User user =read(id).get();
         user.setPassword(password);
         return jpaUserRepository.save(user);
     }
 
+    public User updateDate(String id, LocalDate date){
+        User user=read(id).get();
+        user.setDate(date);
+        return jpaUserRepository.save(user);
+    }
     public void delete(String id){
         jpaUserRepository.deleteById(id);
     }
