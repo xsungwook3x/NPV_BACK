@@ -12,11 +12,13 @@ public interface CertificateRepository {
 
     void store(MultipartFile file);
 
-    Stream<Path> loadAll();
-
     Path load(String filename);
 
     Resource loadAsResource(String filename);
 
-    void deleteAll();
+    void update(MultipartFile file, String filename);
+
+    void delete(String filename);
+
+
 }

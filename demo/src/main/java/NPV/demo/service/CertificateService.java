@@ -3,15 +3,15 @@ package NPV.demo.service;
 import NPV.demo.repository.CertificateRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.net.MalformedURLException;
+import java.nio.file.*;
 import java.util.stream.Stream;
 
 @Service
@@ -48,22 +48,38 @@ public class CertificateService implements CertificateRepository {
     }
 
     @Override
-    public Stream<Path> loadAll() {
-        return null;
-    }
-
-    @Override
     public Path load(String filename) {
-        return null;
+        return Paths.get(uploadPath).resolve(filename);
     }
 
     @Override
     public Resource loadAsResource(String filename) {
-        return null;
+        try{
+            Path file = load(filename);
+            Resource resource =new UrlResource(file.toUri());
+            if(resource.exists() || resource.isReadable()){
+                return resource;
+            }
+            else{
+                throw new RuntimeException("Could not read file: "+filename);
+            }
+        }catch(MalformedURLException e){
+            throw new RuntimeException("Could not read file: "+filename, e);
+        }
     }
 
     @Override
-    public void deleteAll() {
+    public void update(MultipartFile file, String filename) {
+        delete(filename);
+        store(file);
+    }
 
+    @Override
+    public void delete(String filename) {
+        try {
+            Files.deleteIfExists(Paths.get(uploadPath+"/"+filename));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
