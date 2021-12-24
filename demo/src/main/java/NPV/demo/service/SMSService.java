@@ -12,8 +12,8 @@ public class SMSService {
 
     public void certifiedPhoneNumber(String phoneNumber,String cerNum){
 
-        String api_key="NCSSEEFCZPYKNOFX";
-        String api_secret="0Q3NN4ZR5PTLHCT9BUZR6L3VLE0JVV5H";
+        String api_key="NCSWECCOHMYANTQD";
+        String api_secret="TR7YBWV5YKG0TZWFKQWQTFXJYAOAZP9B";
         Message coolsms = new Message(api_key,api_secret);
 
         HashMap<String, String> params = new HashMap<String, String>();

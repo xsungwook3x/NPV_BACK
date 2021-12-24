@@ -17,6 +17,7 @@ public class SMSController {
         this.smsService=smsService;
     }
 
+    @GetMapping("/smsSend")
     public @ResponseBody String sendSMS(@RequestParam String phoneNumber){
 
         Random rand = new Random();
