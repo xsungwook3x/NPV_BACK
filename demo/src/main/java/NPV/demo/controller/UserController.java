@@ -60,12 +60,12 @@ public class UserController {
     }
 
     @GetMapping("/user")//로그인
-    public ResponseEntity<User> userLogin(@RequestParam String id){
+    public ResponseEntity<?> userLogin(@RequestParam String id){
         if(userService.read(id).get()==null){
             return ResponseEntity.notFound().build();
         }
 
-        return  ResponseEntity.ok().body(userService.read(id).get());
+        return  ResponseEntity.ok().body(userService.read(id).get()+userService.makeJwtToken(id));
     }
 
     @GetMapping("/user/password")//비번 변경전 확인

@@ -8,10 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -35,6 +32,10 @@ public class User {
     private LocalDate date;
 
     private String fileName;
+
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
+
 
     public LocalDate getDate() {
         return date;
