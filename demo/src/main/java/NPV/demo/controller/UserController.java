@@ -1,6 +1,5 @@
 package NPV.demo.controller;
 
-import NPV.demo.domain.entity.User;
 import NPV.demo.service.CertificateService;
 import NPV.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +27,7 @@ public class UserController {
         this.userService=userService;
         this.certificateService=certificateService;
     }
-
+    /*
     @PostMapping("/user")//회원가입
     public ResponseEntity<User> userSignUp(@RequestBody User user){
 
@@ -65,7 +64,7 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
 
-        return  ResponseEntity.ok().body(userService.read(id).get()+userService.makeJwtToken(id));
+        return  ResponseEntity.ok().body(userService.read(id).get());
     }
 
     @GetMapping("/user/password")//비번 변경전 확인
@@ -92,6 +91,6 @@ public class UserController {
     public void delete(@RequestParam String id){
         userService.delete(id);
     }
-
+    */
 
 }

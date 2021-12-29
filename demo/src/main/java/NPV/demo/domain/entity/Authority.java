@@ -1,2 +1,5 @@
-package NPV.demo.domain.entity;public class Authority {
+package NPV.demo.domain.entity;
+
+public enum Authority {
+    ROLE_USER, ROLE_ADMIN
 }

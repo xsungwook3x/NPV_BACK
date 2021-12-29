@@ -1,24 +1,16 @@
 package NPV.demo.service;
 
-import NPV.demo.domain.entity.User;
-import NPV.demo.repository.JpaUserRepository;
-import io.jsonwebtoken.Header;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
-import java.time.Duration;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
+    /*
     private JpaUserRepository jpaUserRepository;
 
     @Autowired
@@ -48,8 +40,8 @@ public class UserService {
     public void delete(String id){
         jpaUserRepository.deleteById(id);
     }
+    */
 
-    
 
 
 }
